@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Purificador de Aire | Colegio Las Américas</title>
+
+    <style>
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+            --verde-oscuro: #0b3d2e;
+            --verde: #1f7a55;
+            --verde-claro: #43b581;
+            --menta: #a8e6cf;
+            --azul: #1479b8;
+            --azul-claro: #54c7ec;
+            --aire: #dff8ff;
+            --blanco: #f8fffc;
+            --negro: #10201a;
+            --gris: #64746d;
+            --verde-neon: #8dffb5;
+            --sombra: 0 15px 40px rgba(0, 50, 35, 0.15);
+        }
+
+        /* =========================================================
+           CONFIGURACIÓN GENERAL
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(67,181,129,.12), transparent 25%),
+                radial-gradient(circle at 80% 80%, rgba(84,199,236,.12), transparent 25%),
+                #f4fbf7;
+            color: var(--negro);
+            overflow-x: hidden;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           FONDO DE PARTÍCULAS
+        ========================================================= */
+
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(67,181,129,.3);
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            from {
+                transform: translateY(110vh) translateX(0);
+            }
+
+            to {
+                transform: translateY(-20vh) translateX(80px);
+            }
+        }
+
+        /* =========================================================
+           NAVEGACIÓN
+        ========================================================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11,61,46,.94);
+            backdrop-filter: blur(15px);
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+        nav {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav button {
+            border: none;
+            color: white;
+            background: transparent;
+            padding: 10px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: .3s;
+            font-weight: 600;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: rgba(141,255,181,.16);
+            color: var(--verde-neon);
+        }
+
+        /* =========================================================
+           SECCIONES / PESTAÑAS
+        ========================================================= */
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px 20px 80px;
+        }
+
+        .tab {
+            display: none;
+            animation: aparecer .45s ease;
+        }
+
+        .tab.active {
+            display: block;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 72vh;
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-text small {
+            display: inline-block;
+            color: var(--verde);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6.5vw, 5rem);
+            line-height: .95;
+            color: var(--verde-oscuro);
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: var(--azul);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--gris);
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            transition: .25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--sombra);
+        }
+
+        .btn-primary {
+            background: var(--verde);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--verde-oscuro);
+            border: 1px solid #d5e8df;
+        }
+
+        /* =========================================================
+           PURIFICADOR ANIMADO
+        ========================================================= */
+
+        .air-machine {
+            position: relative;
+            height: 390px;
+            border-radius: 30px;
+            background: linear-gradient(145deg, #eafff5, #dff8ff);
+            box-shadow: var(--sombra);
+            overflow: hidden;
+            border: 1px solid rgba(31,122,85,.12);
+        }
+
+        .machine-body {
+            position: absolute;
+            width: 190px;
+            height: 270px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(160deg, #ffffff, #d9eee5);
+            border-radius: 28px;
+            box-shadow:
+                inset 0 0 0 5px rgba(11,61,46,.08),
+                0 25px 50px rgba(11,61,46,.2);
+            z-index: 3;
+        }
+
+        .machine-top {
+            position: absolute;
+            width: 80px;
+            height: 18px;
+            top: -9px;
+            left: 55px;
+            border-radius: 20px;
+            background: var(--verde-oscuro);
+        }
+
+        .machine-display {
+            position: absolute;
+            top: 35px;
+            left: 25px;
+            right: 25px;
+            height: 55px;
+            border-radius: 12px;
+            background: #102820;
+            color: var(--verde-neon);
+            display: grid;
+            place-items: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .machine-filter {
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            height: 110px;
+            border-radius: 12px;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    #c7d9d2 0,
+                    #c7d9d2 4px,
+                    #eef7f3 4px,
+                    #eef7f3 8px
+                );
+            box-shadow: inset 0 0 20px rgba(0,0,0,.08);
+        }
+
+        .air-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #9b5948;
+            opacity: .8;
+            z-index: 2;
+            animation: airFlow 3s linear infinite;
+        }
+
+        .air-particle.clean {
+            background: var(--azul);
+        }
+
+        @keyframes airFlow {
+            0% {
+                transform: translateX(-100px) scale(.7);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            75% {
+                opacity: .8;
+            }
+
+            100% {
+                transform: translateX(380px) scale(.3);
+                opacity: 0;
+            }
+        }
+
+        /* =========================================================
+           TÍTULOS
+        ========================================================= */
+
+        .section-title {
+            text-align: center;
+            margin: 50px auto;
+            max-width: 800px;
+        }
+
+        .section-title span {
+            color: var(--verde);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: .85rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--verde-oscuro);
+            margin: 10px 0;
+        }
+
+        .section-title p {
+            color: var(--gris);
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+           TARJETAS
+        ========================================================= */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,.85);
+            border: 1px solid #dcece5;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0,50,35,.07);
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: var(--sombra);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: var(--verde-oscuro);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--gris);
+            line-height: 1.65;
+        }
+
+        /* =========================================================
+           FÍSICA
+        ========================================================= */
+
+        .formula {
+            margin-top: 30px;
+            background: #09261d;
+            color: #b8ffd0;
+            padding: 25px;
+            border-radius: 18px;
+            font-family: "Courier New", monospace;
+            font-size: 1.1rem;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .physics-box {
+            margin-top: 25px;
+            padding: 25px;
+            border-left: 5px solid var(--azul);
+            background: #e8f8ff;
+            border-radius: 12px;
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+           EXPERIMENTO
+        ========================================================= */
+
+        .experiment {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .step {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 22px;
+            align-items: flex-start;
+        }
+
+        .number {
+            min-width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--verde);
+            color: white;
+            font-weight: 900;
+        }
+
+        .step h3 {
+            color: var(--verde-oscuro);
+            margin-bottom: 5px;
+        }
+
+        .step p {
+            color: var(--gris);
+            line-height: 1.6;
+        }
+
+        .materials-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .material-tag {
+            background: #e1f5eb;
+            color: var(--verde-oscuro);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: 1px solid #c0e6d5;
+        }
+
+        /* =========================================================
+   GALERÍA DE FOTOGRAFÍAS DEL EXPERIMENTO
+========================================================= */
+
+.experiment-gallery {
+    margin-top: 55px;
+}
+
+.gallery-heading {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 30px;
+}
+
+.gallery-heading h2 {
+    color: var(--verde-oscuro);
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    margin: 12px 0;
+}
+
+.gallery-heading span {
+    color: var(--verde);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+}
+
+.gallery-heading p {
+    color: var(--gris);
+    line-height: 1.7;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.gallery-card {
+    background: white;
+    border: 1px solid #dcece5;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 50, 35, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra);
+}
+
+.gallery-card img {
+    display: block;
+    width: 100%;
+    height: 235px;
+    object-fit: cover;
+    background: #e8f8ff;
+}
+
+.gallery-caption {
+    padding: 19px;
+}
+
+.gallery-caption h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 9px;
+    font-size: 1.05rem;
+}
+
+.gallery-caption p {
+    color: var(--gris);
+    line-height: 1.6;
+    font-size: 0.94rem;
+}
+
+.gallery-number {
+    display: inline-block;
+    color: var(--verde);
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 9px;
+    letter-spacing: 1px;
+}
+
+/* Adaptación para tablets y celulares */
+@media (max-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-card img {
+        height: 250px;
+    }
+}
+        /* =========================================================
+           TABLA
+        ========================================================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: var(--sombra);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #e4eee9;
+        }
+
+        th {
+            background: var(--verde-oscuro);
+            color: white;
+        }
+
+        tr:hover td {
+            background: #f1fbf6;
+        }
+
+        /* =========================================================
+           SIMULADOR
+        ========================================================= */
+
+        .simulator {
+            background: #071c17;
+            color: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: var(--sombra);
+        }
+
+        .simulator h3 {
+            color: var(--verde-neon);
+            margin-bottom: 15px;
+        }
+
+        .slider-group {
+            margin: 25px 0;
+        }
+
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #d8f8e7;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--verde-claro);
+        }
+
+        .sim-result {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .result {
+            background: rgba(255,255,255,.08);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .result strong {
+            display: block;
+            color: var(--verde-neon);
+            font-size: 1.8rem;
+        }
+
+        /* =========================================================
+           PYTHON
+        ========================================================= */
+
+        .python-section {
+            background: #101820;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            color: white;
+        }
+
+        .python-header {
+            padding: 20px 25px;
+            background: #18252e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .python-header span {
+            color: #ffcc66;
+            font-weight: bold;
+        }
+
+        .python-code {
+            padding: 25px;
+            overflow-x: auto;
+            font-family: "Courier New", monospace;
+            line-height: 1.6;
+            font-size: .88rem;
+            max-height: 480px;
+            overflow-y: auto;
+        }
+
+        .python-keyword {
+            color: #ff79c6;
+        }
+
+        .python-function {
+            color: #8be9fd;
+        }
+
+        .python-string {
+            color: #f1fa8c;
+        }
+
+        .python-comment {
+            color: #627a87;
+        }
+
+        .python-run {
+            padding: 20px 25px;
+            background: #0b141a;
+            border-top: 1px solid #263640;
+        }
+
+        .terminal {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #050909;
+            color: #8dffb5;
+            font-family: monospace;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+
+        /* =========================================================
+           QUIZ
+        ========================================================= */
+
+        .quiz {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .question {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,50,35,.07);
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+            color: var(--verde-oscuro);
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: 1px solid #dcece5;
+            background: white;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .option:hover {
+            background: #effbf5;
+            border-color: var(--verde-claro);
+        }
+
+        .correct {
+            background: #c8f7d9 !important;
+            border-color: #42b96c !important;
+        }
+
+        .incorrect {
+            background: #ffd6d6 !important;
+            border-color: #d95757 !important;
+        }
+
+        #quizResult {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* =========================================================
+           EQUIPO
+        ========================================================= */
+
+        .people {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .person {
+            background: white;
+            border-radius: 18px;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,50,35,.07);
+            transition: .3s;
+        }
+
+        .person:hover {
+            transform: translateY(-5px);
+        }
+
+        .avatar {
+    width: 70px;
+    height: 70px;
+    margin: auto auto 12px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+        .person h3 {
+            font-size: .95rem;
+            color: var(--verde-oscuro);
+        }
+
+        .teachers {
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 850px;
+            margin: 25px auto;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            background: var(--verde-oscuro);
+            color: white;
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+        footer h2 {
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            color: #b9d9cb;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+            .hero,
+            .experiment {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .people {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .nav-container {
+                flex-direction: column;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            nav button {
+                font-size: .8rem;
+                padding: 8px;
+            }
+
+            .hero {
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .grid,
+            .sim-result,
+            .people,
+            .teachers {
+                grid-template-columns: 1fr;
+            }
+
+            .air-machine {
+                height: 330px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =============================================================
+     PARTÍCULAS DE FONDO
+============================================================= -->
+
+<div id="particles"></div>
+
+
+<!-- =============================================================
+     MENÚ
+============================================================= -->
+
+<header>
+
+    <div class="nav-container">
+
+        
+<div class="logo">
+    <img src="logo.png" alt="Logo del proyecto" class="logo-icon">
+    Colegio Las Américas
+</div>
+
+        <nav>
+
+            <button class="nav-btn active" data-tab="inicio">
+                Inicio
+            </button>
+
+            <button class="nav-btn" data-tab="experimento">
+                Experimento
+            </button>
+
+            <button class="nav-btn" data-tab="fisica">
+                Física
+            </button>
+
+            <button class="nav-btn" data-tab="simulador">
+                Simulador
+            </button>
+
+            <button class="nav-btn" data-tab="python">
+                Python
+            </button>
+
+            <button class="nav-btn" data-tab="quiz">
+                Quiz
+            </button>
+
+            <button class="nav-btn" data-tab="equipo">
+                Equipo
+            </button>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<!-- =============================================================
+     INICIO
+============================================================= -->
+
+<section id="inicio" class="tab active">
+
+    <div class="hero">
+
+        <div class="hero-text">
+
+            <small>Feria Científica • 10mo Grado B</small>
+
+            <h1>
+                Purificador<br>
+                de <span>Aire</span>
+            </h1>
+
+            <p>
+                Un proyecto científico del <strong>Colegio Las Américas</strong> que explora cómo podemos utilizar
+                principios de física, filtración y movimiento del aire
+                para reducir partículas contaminantes presentes en un
+                ambiente.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-primary" onclick="openTab('experimento')">
+                    🔬 Ver experimento
+                </button>
+
+                <button class="btn btn-secondary" onclick="openTab('simulador')">
+                    🌬 Probar simulador
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="air-machine" id="machineContainer">
+
+            <div class="machine-body">
+
+                <div class="machine-top"></div>
+
+                <div class="machine-display">
+                    AIR: <span id="displayQuality">GOOD</span>
+                </div>
+
+                <div class="machine-filter"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+
+        <span>La idea</span>
+
+        <h2>¿Por qué purificar el aire?</h2>
+
+        <p>
+            El aire que respiramos puede contener polvo, humo y otras
+            partículas. Nuestro proyecto busca demostrar de forma
+            experimental cómo un sistema de filtración puede ayudar
+            a disminuir estas partículas.
+        </p>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-icon">🌱</div>
+            <h3>Naturaleza</h3>
+            <p>
+                La calidad del aire influye en los seres humanos,
+                animales y ecosistemas. Mantener ambientes más limpios
+                es parte del cuidado de nuestro entorno.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚛️</div>
+            <h3>Física</h3>
+            <p>
+                El funcionamiento del sistema puede relacionarse con
+                movimiento de fluidos, presión, velocidad del aire y
+                filtración de partículas.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔬</div>
+            <h3>Experimentación</h3>
+            <p>
+                Mediante pruebas podemos comparar las condiciones del
+                aire antes y después de utilizar el sistema de
+                purificación.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =============================================================
+     EXPERIMENTO
+============================================================= -->
+
+<section id="experimento" class="tab">
+
+    <div class="section-title">
+
+        <span>Metodología científica</span>
+
+        <h2>Nuestro experimento</h2>
+
+        <p>
+            El objetivo es construir y estudiar un purificador de aire
+            y observar cómo cambia la cantidad de partículas presentes
+            después del proceso de filtración.
+        </p>
+
+    </div>
+
+
+    <div class="experiment">
+
+        <div class="card">
+
+            <div class="step">
+
+                <div class="number">1</div>
+
+                <div>
+                    <h3>Preparación</h3>
+
+                    <p>
+                        Construimos el sistema de purificación utilizando
+                        un mecanismo de circulación de aire impulsado por motor, hélices y batería.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="number">2</div>
+
+                <div>
+                    <h3>Etapa de Filtrado</h3>
+
+                    <p>
+                        El aire ingresa pasando por un cernidor, papel filtro y una capa de carbón activado contenida en el envase de jabón.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="number">3</div>
+
+                <div>
+                    <h3>Filtración</h3>
+
+                    <p>
+                        El sistema mueve el aire hacia el filtro,
+                        donde parte de las partículas quedan retenidas.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="number">4</div>
+
+                <div>
+                    <h3>Medición</h3>
+
+                    <p>
+                        Registramos los datos obtenidos y los comparamos
+                        con la condición inicial.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🛠️ Materiales Utilizados</h3>
+
+            <div class="materials-list">
+                <span class="material-tag">🔌 Ventilador</span>
+                <span class="material-tag">🔋 Batería</span>
+                <span class="material-tag">🌀 Hélices</span>
+                <span class="material-tag">🕸️ Cernidor</span>
+                <span class="material-tag">📄 Papel Filtro</span>
+                <span class="material-tag">⚡ Motor</span>
+                <span class="material-tag">🔘 Switch</span>
+                <span class="material-tag">⬛ Carbón Activado</span>
+                <span class="material-tag">🧴 Envase de Jabón</span>
+        
+            </div>
+
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #dcece5;">
+
+            <h3>🎯 Objetivo</h3>
+
+            <p style="margin: 10px 0 20px;">
+                Determinar si nuestro sistema de purificación puede
+                reducir la cantidad de partículas presentes en el aire
+                de un espacio determinado.
+            </p>
+
+            <h3>💡 Hipótesis</h3>
+
+            <p style="margin-top: 10px;">
+                Si hacemos pasar aire contaminado por un sistema
+                filtrante, entonces la cantidad de partículas presentes
+                en el aire debería disminuir.
+            </p>
+
+        </div>
+
+    </div>
+
+
+<!-- =========================================================
+     GALERÍA: PROCESO DE CONSTRUCCIÓN
+========================================================= -->
+
+<div class="experiment-gallery">
+
+    <div class="gallery-heading">
+        <span>Detrás del proyecto</span>
+        <h2>Así construimos nuestro purificador</h2>
+        <p>
+            Una recopilación de fotografías que documenta las etapas
+            de preparación de materiales, montaje de componentes y
+            elaboración de nuestro prototipo para la feria científica.
+        </p>
+    </div>
+
+    <div class="gallery-grid">
+
+        <!-- FOTO 1 -->
+        <article class="gallery-card">
+            <img src="iniciomaqueta.jpeg"
+                 alt="Inicio de la construcción de la maqueta"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 01</span>
+                <h3>Inicio de la maqueta</h3>
+                <p>Comenzamos a preparar la estructura que utilizaríamos para construir el prototipo.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 2 -->
+        <article class="gallery-card">
+            <img src="envase cortado.jpeg"
+                 alt="Envase preparado para el purificador"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 02</span>
+                <h3>Preparación del envase</h3>
+                <p>Acondicionamos el recipiente que serviría como parte de la estructura del sistema.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 3 -->
+        <article class="gallery-card">
+            <img src="cautin.jfif"
+                 alt="Cautín utilizado durante la elaboración"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 03</span>
+                <h3>Herramientas de construcción</h3>
+                <p>Preparamos las herramientas necesarias para trabajar en el ensamblaje de los componentes.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 4 -->
+        <article class="gallery-card">
+            <img src="motor-helice.jpeg"
+                 alt="Motor y hélice del sistema de ventilación"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 04</span>
+                <h3>Sistema de ventilación</h3>
+                <p>Incorporamos el motor y la hélice para impulsar el movimiento del aire.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 5 -->
+        <article class="gallery-card">
+            <img src="papel filtro.jpeg"
+                 alt="Papel filtro utilizado en el experimento"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 05</span>
+                <h3>Preparación del filtro</h3>
+                <p>Preparamos el papel filtro como uno de los materiales utilizados en la filtración.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 6 -->
+        <article class="gallery-card">
+            <img src="carbon activado.jpeg"
+                 alt="Carbón activado para el sistema de filtración"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 06</span>
+                <h3>Carbón activado</h3>
+                <p>Preparamos este material poroso para incorporarlo al sistema de filtración.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 7 -->
+        <article class="gallery-card">
+            <img src="elaboracion1.jpeg"
+                 alt="Primera fotografía de la elaboración del prototipo"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 07</span>
+                <h3>Primera etapa de elaboración</h3>
+                <p>Continuamos trabajando en la construcción y preparación de las diferentes piezas.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 8 -->
+        <article class="gallery-card">
+            <img src="elaboracion2.jpeg"
+                 alt="Segunda fotografía del proceso de elaboración"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 08</span>
+                <h3>Montaje de componentes</h3>
+                <p>Avanzamos en la integración de los elementos que conforman el prototipo.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 9 -->
+        <article class="gallery-card">
+            <img src="elaboracion3.jpeg"
+                 alt="Tercera fotografía de la construcción"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 09</span>
+                <h3>Ensamblaje del prototipo</h3>
+                <p>Seguimos ajustando las piezas para completar la estructura del purificador.</p>
+            </div>
+        </article>
+
+        <!-- FOTO 10 -->
+        <article class="gallery-card">
+            <img src="elaboracion4.jpeg"
+                 alt="Cuarta fotografía del proceso de construcción"
+                 loading="lazy">
+            <div class="gallery-caption">
+                <span class="gallery-number">ETAPA 10</span>
+                <h3>Avance de la construcción</h3>
+                <p>Documentamos otra etapa del trabajo realizado durante la elaboración del proyecto.</p>
+            </div>
+        </article>
+
+    </div>
+</div>
+
+<!-- FIN DE LA GALERÍA -->
+
+    <div class="section-title">
+
+        <span>Datos</span>
+
+        <h2>Tabla de resultados</h2>
+
+        <p>
+            Valores medidos durante las pruebas del prototipo.
+        </p>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Tiempo</th>
+                    <th>Partículas iniciales</th>
+                    <th>Partículas finales</th>
+                    <th>Reducción</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>0 min</td>
+                    <td>100</td>
+                    <td>100</td>
+                    <td>0%</td>
+                </tr>
+
+                <tr>
+                    <td>5 min</td>
+                    <td>100</td>
+                    <td>78</td>
+                    <td>22%</td>
+                </tr>
+
+                <tr>
+                    <td>10 min</td>
+                    <td>100</td>
+                    <td>55</td>
+                    <td>45%</td>
+                </tr>
+
+                <tr>
+                    <td>15 min</td>
+                    <td>100</td>
+                    <td>37</td>
+                    <td>63%</td>
+                </tr>
+
+                <tr>
+                    <td>20 min</td>
+                    <td>100</td>
+                    <td>25</td>
+                    <td>75%</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =============================================================
+     FÍSICA
+============================================================= -->
+
+<section id="fisica" class="tab">
+
+    <div class="section-title">
+
+        <span>Fundamentos</span>
+
+        <h2>La física detrás del aire</h2>
+
+        <p>
+            Un purificador de aire combina conceptos de movimiento de
+            fluidos, presión, flujo y filtración.
+        </p>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+
+            <div class="card-icon">🌬️</div>
+
+            <h3>Flujo de aire</h3>
+
+            <p>
+                El aire se mueve debido a diferencias de presión.
+                El ventilador crea una diferencia de presión que provoca
+                que el aire atraviese el filtro.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">🌀</div>
+
+            <h3>Velocidad</h3>
+
+            <p>
+                La velocidad del aire afecta cuánto aire puede atravesar
+                el sistema durante un determinado intervalo de tiempo.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">🧲</div>
+
+            <h3>Filtración</h3>
+
+            <p>
+                Las fibras del filtro y el carbón activado pueden atrapar partículas mediante
+                diferentes mecanismos físicos y químicas según su poro.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="formula">
+        Q = A × v
+        <br><br>
+        Flujo volumétrico = Área × Velocidad
+    </div>
+
+
+    <div class="physics-box">
+
+        <strong>¿Qué significa?</strong>
+
+        <br><br>
+
+        Q representa el flujo volumétrico del aire.
+
+        <br>
+
+        A representa el área por donde pasa el aire.
+
+        <br>
+
+        v representa la velocidad promedio del aire.
+
+        <br><br>
+
+        Esta relación permite comprender por qué el movimiento del aire
+        es importante para un sistema de filtración.
+
+    </div>
+
+
+    <div class="formula">
+
+        Eficiencia =
+        (Partículas eliminadas / Partículas iniciales) × 100
+
+    </div>
+
+</section>
+
+
+<!-- =============================================================
+     SIMULADOR
+============================================================= -->
+
+<section id="simulador" class="tab">
+
+    <div class="section-title">
+
+        <span>Laboratorio virtual</span>
+
+        <h2>Simulador del purificador</h2>
+
+        <p>
+            Modifica la velocidad del ventilador y la eficiencia del
+            filtro para observar cómo cambia el comportamiento del
+            sistema.
+        </p>
+
+    </div>
+
+
+    <div class="simulator">
+
+        <h3>⚙️ Controles experimentales</h3>
+
+        <div class="slider-group">
+
+            <label>
+                <span>Velocidad del ventilador</span>
+                <strong id="speedValue">50%</strong>
+            </label>
+
+            <input id="speed" type="range" min="10" max="100" value="50">
+
+        </div>
+
+
+        <div class="slider-group">
+
+            <label>
+                <span>Eficiencia del filtro</span>
+                <strong id="filterValue">70%</strong>
+            </label>
+
+            <input id="filter" type="range" min="10" max="99" value="70">
+
+        </div>
+
+
+        <div class="slider-group">
+
+            <label>
+                <span>Tiempo</span>
+                <strong id="timeValue">10 min</strong>
+            </label>
+
+            <input id="time" type="range" min="1" max="30" value="10">
+
+        </div>
+
+
+        <div class="sim-result">
+
+            <div class="result">
+                <strong id="airflow">50</strong>
+                Flujo relativo
+            </div>
+
+            <div class="result">
+                <strong id="cleaning">70%</strong>
+                Eficiencia
+            </div>
+
+            <div class="result">
+                <strong id="remaining">30%</strong>
+                Partículas restantes
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div style="height:30px"></div>
+
+
+    <div class="card">
+
+        <h3>🌎 Interpretación</h3>
+
+        <p id="simulationText" style="margin-top:12px; line-height:1.7;">
+            Ajusta los controles para ver el análisis de simulación en tiempo real.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =============================================================
+     PYTHON
+============================================================= -->
+
+<section id="python" class="tab">
+
+    <div class="section-title">
+
+        <span>Programación Orientada a Objetos</span>
+
+        <h2>Monitoreo en Python</h2>
+
+        <p>
+            Clases en Python diseñadas para diagnosticar la calidad del aire (AQI) e interpretar el estado del filtro HEPA.
+        </p>
+
+    </div>
+
+    <div class="python-section">
+
+        <div class="python-header">
+            <span>purificador_monitoreo.py</span>
+            <button class="btn btn-primary" onclick="runPythonCode()">▶ Ejecutar Diagnóstico</button>
+        </div>
+
+        <div class="python-code">
+<span class="python-comment"># Establecer clases</span>
+<span class="python-keyword">class</span> <span class="python-function">SensorPPM</span>:
+    <span class="python-keyword">def</span> <span class="python-function">__init__</span>(self, SensorPPM):
+        self.SensorPPM = SensorPPM
+
+<span class="python-keyword">class</span> <span class="python-function">FiltroHEPA</span>:
+    <span class="python-keyword">def</span> <span class="python-function">__init__</span>(self, FiltroHEPA):
+        self.FiltroHEPA = FiltroHEPA
+
+<span class="python-keyword">class</span> <span class="python-function">Purificador</span>(SensorPPM, FiltroHEPA):
+    <span class="python-keyword">def</span> <span class="python-function">__init__</span>(self, sensorppm, filtrohepa):
+        SensorPPM.__init__(self, sensorppm)
+        FiltroHEPA.__init__(self, filtrohepa)
+
+    <span class="python-comment"># Función para analizar el PPM</span>
+    <span class="python-keyword">def</span> <span class="python-function">analizar_aqi</span>(self):
+        <span class="python-function">print</span>(<span class="python-string">"\n========== Calidad del Aire 'AQI' =========="</span>)
+        <span class="python-keyword">if</span> 0 &lt;= self.SensorPPM &lt;= 50:
+            <span class="python-function">print</span>(<span class="python-string">"AQI: Bueno, el aire presenta poca contaminación"</span>) 
+        <span class="python-keyword">elif</span> 50 &lt; self.SensorPPM &lt;= 100: 
+            <span class="python-function">print</span>(<span class="python-string">"AQI: Moderado, puede existir cierta contaminación"</span>)
+        <span class="python-keyword">elif</span> 100 &lt; self.SensorPPM &lt;= 150:
+            <span class="python-function">print</span>(<span class="python-string">"AQI: Insalubre para grupos sensibles, conviene aumentar la filtración"</span>)
+        <span class="python-keyword">elif</span> 150 &lt; self.SensorPPM &lt;= 200:
+            <span class="python-function">print</span>(<span class="python-string">"AQI: Insalubre, se requiere una filtración más intensa"</span>)
+        <span class="python-keyword">elif</span> 200 &lt; self.SensorPPM &lt;= 300:
+            <span class="python-function">print</span>(<span class="python-string">"AQI: Muy insalubre, contaminación elevada"</span>)
+        <span class="python-keyword">elif</span> 300 &lt; self.SensorPPM &lt;= 500:
+            <span class="python-function">print</span>(<span class="python-string">"AQI: Peligroso, contaminación extremadamente elevada"</span>)
+        <span class="python-keyword">else</span>:
+            <span class="python-function">print</span>(<span class="python-string">"Valor del SensorPPM fuera del rango establecido"</span>)
+
+    <span class="python-comment"># Función para analizar el estado del filtro</span>
+    <span class="python-keyword">def</span> <span class="python-function">estado_filtro</span>(self): 
+        <span class="python-function">print</span>(<span class="python-string">"\n========== Estado del filtro 'HEPA' =========="</span>)
+        <span class="python-keyword">if</span> 1 &lt;= self.FiltroHEPA &lt;= 5:
+            <span class="python-function">print</span>(<span class="python-string">"No hay necesidad de remplazar el filtro HEPA"</span>)
+        <span class="python-keyword">elif</span> 5 &lt; self.FiltroHEPA &lt;= 11:
+            <span class="python-function">print</span>(<span class="python-string">"Se debería reemplazar el filtro HEPA"</span>)
+        <span class="python-keyword">else</span>: 
+            <span class="python-function">print</span>(<span class="python-string">"Esa no es una opción correcta"</span>)
+        </div>
+
+        <div class="python-run">
+            <strong>Consola de salida (Ejecución de prueba):</strong>
+            <div class="terminal" id="pythonTerminal">Haz clic en "Ejecutar Diagnóstico" para simular la ejecución del programa.</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =============================================================
+     QUIZ
+============================================================= -->
+
+<section id="quiz" class="tab">
+
+    <div class="section-title">
+
+        <span>Ponte a prueba</span>
+
+        <h2>Cuestionario interactivo</h2>
+
+        <p>
+            Demuestra lo que has aprendido sobre el funcionamiento y la física del purificador de aire.
+        </p>
+
+    </div>
+
+    <div class="quiz">
+
+        <div class="question" data-correct="1">
+            <h3>1. ¿Cuál es la principal fuerza física que mueve el aire a través del filtro?</h3>
+            <button class="option" onclick="checkAnswer(this, 0)">A) Fuerza de gravedad</button>
+            <button class="option" onclick="checkAnswer(this, 1)">B) Diferencia de presión generada por el ventilador</button>
+            <button class="option" onclick="checkAnswer(this, 2)">C) Magnetismo del filtro</button>
+        </div>
+
+        <div class="question" data-correct="1">
+            <h3>2. En la fórmula Q = A × v, ¿qué representa la letra 'Q'?</h3>
+            <button class="option" onclick="checkAnswer(this, 0)">A) Densidad del aire</button>
+            <button class="option" onclick="checkAnswer(this, 1)">B) Flujo volumétrico del aire</button>
+            <button class="option" onclick="checkAnswer(this, 2)">C) Temperatura ambiental</button>
+        </div>
+
+        <div class="question" data-correct="0">
+            <h3>3. ¿Cuál es la variable independiente en nuestro experimento?</h3>
+            <button class="option" onclick="checkAnswer(this, 0)">A) Tiempo de funcionamiento</button>
+            <button class="option" onclick="checkAnswer(this, 1)">B) Tamaño del filtro</button>
+            <button class="option" onclick="checkAnswer(this, 2)">C) La humedad del aire</button>
+        </div>
+
+        <div id="quizResult"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =============================================================
+     EQUIPO
+============================================================= -->
+
+<section id="equipo" class="tab">
+
+    <div class="section-title">
+
+        <span>Colegio Las Américas • 10mo B</span>
+
+        <h2>Integrantes del Proyecto</h2>
+
+        <p>
+            Estudiantes a cargo de la investigación, diseño y construcción del purificador de aire.
+        </p>
+
+    </div>
+
+    <div class="people">
+
+        <div class="person">
+            <img src="Dangelo Huertas.jpeg" alt="Dangelo Huertas" class="avatar">
+            <h3>Dangelo Huertas</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Estudiante</p>
+        </div>
+
+        <div class="person">
+            <img src="Mateo Silva.jpeg" alt="Mateo Silva" class="avatar">
+            <h3>Mateo Silva</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Estudiante</p>
+        </div>
+
+        <div class="person">
+            <img src="Aaron Betancourt.jpeg" alt="Aaron Betancourt" class="avatar">
+            <h3>Aaron Betancourt</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Estudiante</p>
+        </div>
+
+        <div class="person">
+            <img src="Eileen Juarez.jpeg" alt="Eileen Juárez" class="avatar">
+            <h3>Eileen Juárez</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Estudiante</p>
+        </div>
+
+        <div class="person">
+            <img src="Andre Zacarias.jpeg" alt="André Zacarias" class="avatar">
+            <h3>André Zacarias</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Estudiante</p>
+        </div>
+
+    </div>
+
+    <div class="section-title" style="margin-top: 60px;">
+
+        <span>Agradecimiento especial</span>
+
+        <h2>Docentes Asesores</h2>
+
+    </div>
+
+    <div class="people teachers">
+
+        <div class="person">
+            <div class="avatar">👨‍🏫</div>
+            <h3>Dorian Corado</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Docente</p>
+        </div>
+
+        <div class="person">
+            <div class="avatar">👩‍🏫</div>
+            <h3>Diana Pineda</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Docente</p>
+        </div>
+
+        <div class="person">
+            <div class="avatar">👨‍🏫</div>
+            <h3>Ronny Esquivel</h3>
+            <p style="font-size:0.8rem; color:var(--gris);">Docente</p>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =============================================================
+     FOOTER
+============================================================= -->
+
+<footer>
+
+    <h2>Purificador de Aire • Feria Científica</h2>
+
+    <p>Colegio Las Américas | 10mo Grado Sección B</p>
+
+</footer>
+
+
+<!-- =============================================================
+     JAVASCRIPT
+============================================================= -->
+
+<script>
+    // 1. SISTEMA DE PESTAÑAS (TABS)
+    function openTab(tabId) {
+        const tabs = document.querySelectorAll('.tab');
+        const buttons = document.querySelectorAll('nav button');
+
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        const activeTab = document.getElementById(tabId);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
+
+        const activeBtn = document.querySelector(`nav button[data-tab="${tabId}"]`);
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+        }
+    }
+
+    document.querySelectorAll('nav button').forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            openTab(tabId);
+        });
+    });
+
+
+    // 2. GENERADOR DE PARTÍCULAS EN EL FONDO
+    function createBackgroundParticles() {
+        const container = document.getElementById('particles');
+        const count = 25;
+
+        for (let i = 0; i < count; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.animationDuration = `${5 + Math.random() * 10}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            container.appendChild(particle);
+        }
+    }
+
+
+    // 3. GENERADOR DE PARTÍCULAS EN LA MÁQUINA
+    function createMachineParticles() {
+        const container = document.getElementById('machineContainer');
+        if (!container) return;
+
+        setInterval(() => {
+            const p = document.createElement('div');
+            p.classList.add('air-particle');
+            
+            if (Math.random() > 0.5) {
+                p.classList.add('clean');
+            }
+
+            p.style.top = `${80 + Math.random() * 200}px`;
+            container.appendChild(p);
+
+            setTimeout(() => {
+                p.remove();
+            }, 3000);
+        }, 600);
+    }
+
+
+    // 4. LÓGICA DEL SIMULADOR
+    const speedInput = document.getElementById('speed');
+    const filterInput = document.getElementById('filter');
+    const timeInput = document.getElementById('time');
+
+    function updateSimulation() {
+        if (!speedInput || !filterInput || !timeInput) return;
+
+        const speed = parseInt(speedInput.value);
+        const filter = parseInt(filterInput.value);
+        const time = parseInt(timeInput.value);
+
+        document.getElementById('speedValue').textContent = `${speed}%`;
+        document.getElementById('filterValue').textContent = `${filter}%`;
+        document.getElementById('timeValue').textContent = `${time} min`;
+
+        document.getElementById('airflow').textContent = speed;
+        document.getElementById('cleaning').textContent = `${filter}%`;
+
+        const decayRate = (speed / 100) * (filter / 100) * 0.12;
+        const remaining = Math.max(1, Math.round(100 * Math.exp(-decayRate * time)));
+
+        document.getElementById('remaining').textContent = `${remaining}%`;
+
+        const text = document.getElementById('simulationText');
+        if (remaining < 20) {
+            text.textContent = `🟢 ¡Excelente purificación! Con una velocidad de ${speed}% y un filtro de ${filter}%, las partículas cayeron al ${remaining}% en ${time} minutos.`;
+        } else if (remaining < 50) {
+            text.textContent = `🟡 Purificación moderada. En ${time} minutos se logró reducir la contaminación al ${remaining}%. Aumentar la velocidad o eficiencia del filtro mejorará el resultado.`;
+        } else {
+            text.textContent = `🔴 Purificación lenta. Las partículas restantes se mantienen en un ${remaining}%. Se necesita mayor flujo de aire o un filtro con mayor capacidad.`;
+        }
+    }
+
+    if (speedInput && filterInput && timeInput) {
+        speedInput.addEventListener('input', updateSimulation);
+        filterInput.addEventListener('input', updateSimulation);
+        timeInput.addEventListener('input', updateSimulation);
+        updateSimulation();
+    }
+
+
+    // 5. TERMINAL PYTHON SIMULADA CON EL NUEVO CÓDIGO
+    function runPythonCode() {
+        const terminal = document.getElementById('pythonTerminal');
+        terminal.textContent = "Bienvenido al centro de monitoreo del purificador de aire\nEmpecemos con el diagnóstico...\n----------------------------------------------------\n";
+        
+        setTimeout(() => {
+            terminal.textContent += 
+`Ingresa el valor del PPM para evaluar la calidad del aire: 42
+Seleccione el estado del filtro (1-11): 3
+
+==================== Calidad del Aire 'AQI' ====================
+AQI: Bueno, el aire presenta poca contaminación
+
+==================== Estado del filtro 'HEPA' ====================
+No hay necesidad de remplazar el filtro HEPA
+
+====================================================
+Análisis del purificador completado correctamente
+====================================================`;
+        }, 700);
+    }
+
+
+    // 6. LÓGICA DEL QUIZ
+    function checkAnswer(button, index) {
+        const questionDiv = button.parentElement;
+        const correctIndex = parseInt(questionDiv.getAttribute('data-correct'));
+        const options = questionDiv.querySelectorAll('.option');
+
+        options.forEach(opt => {
+            opt.disabled = true;
+            opt.classList.remove('correct', 'incorrect');
+        });
+
+        if (index === correctIndex) {
+            button.classList.add('correct');
+        } else {
+            button.classList.add('incorrect');
+            options[correctIndex].classList.add('correct');
+        }
+    }
+
+    // Inicializar funciones al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+        createBackgroundParticles();
+        createMachineParticles();
+    });
+</script>
+
+</body>
+</html>
